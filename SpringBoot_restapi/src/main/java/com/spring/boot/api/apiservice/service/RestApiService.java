@@ -11,33 +11,35 @@ import com.spring.boot.api.apiservice.repository.CrudtestRepository;
 
 @Service
 public class RestApiService {
-	
 	@Autowired
 	CrudtestRepository crudtestRepository;
 	
-	public void insert(Crudtest crudtest) {
+	public Crudtest insert(Crudtest crudtestRequest) {
+		Crudtest crudtest = Crudtest.builder()
+				.userid(crudtestRequest.getUserid())
+				.username(crudtestRequest.getUsername()).build();
 		crudtestRepository.save(crudtest);
+		return crudtest;
 	}
 	
 	public List<Crudtest> selectByUsername(Crudtest crudtest) {
 		return crudtestRepository.findCrudtestByUsername(crudtest.getUsername());
 	}
 	
-	public void update(Crudtest crudtest) {
+	public Optional<Crudtest> update(Crudtest crudtest) {
 		Optional<Crudtest> resultCrudtest = crudtestRepository.findById(crudtest.getId());
 		resultCrudtest.ifPresent(selectCrudtest -> {
 			selectCrudtest.setUsername(crudtest.getUsername());
-			Crudtest newCrudtest = crudtestRepository.save(selectCrudtest);
-			System.out.println("update: " + newCrudtest.toString());
+			crudtestRepository.save(selectCrudtest);
 		});
+		return resultCrudtest;
 	}
 	
-	public void delete(Crudtest crudtest) {
+	public Optional<Crudtest> delete(Crudtest crudtest) {
 		Optional<Crudtest> resultCrudtest = crudtestRepository.findById(crudtest.getId());
 		resultCrudtest.ifPresent(selectCrudtest -> {
 			crudtestRepository.delete(selectCrudtest);
 		});
-		
+		return resultCrudtest;
 	}
-
 }
