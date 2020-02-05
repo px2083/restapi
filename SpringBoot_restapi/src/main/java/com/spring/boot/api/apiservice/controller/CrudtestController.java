@@ -25,8 +25,7 @@ public class CrudtestController {
 	
 	@GetMapping("/selectTest")
 	public List<Crudtest> selectTest(Crudtest crudtest) {
-		List<Crudtest> crudtestList = restApiService.selectByUsername(crudtest);
-		return crudtestList;
+		return restApiService.selectByUsername(crudtest);
 	}
 
 	@GetMapping("/updateTest")
