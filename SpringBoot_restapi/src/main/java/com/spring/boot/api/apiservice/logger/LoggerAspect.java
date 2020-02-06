@@ -1,4 +1,4 @@
-package com.spring.boot.api.apiservice.advice;
+package com.spring.boot.api.apiservice.logger;
 
 import java.util.Arrays;
 
@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-public class MessageAdvice {
-	private static Logger logger = LogManager.getLogger(MessageAdvice.class);
+public class LoggerAspect {
+	private static Logger logger = LogManager.getLogger(LoggerAspect.class);
 	
 	@Before("execution(* com.spring.boot.api.apiservice.service.RestApiService*.*(..))")
 	public void startLog(JoinPoint jp) {
