@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.boot.api.apiservice.model.Crudtest;
+import com.spring.boot.api.apiservice.model.Ordertest;
 import com.spring.boot.api.apiservice.service.RestApiService;
 
 @RestController
@@ -16,7 +17,7 @@ import com.spring.boot.api.apiservice.service.RestApiService;
 public class CrudtestController {
 	
 	@Autowired
-	RestApiService restApiService;
+	private RestApiService restApiService;
 	
 	@GetMapping("/insertTest")
 	public Crudtest insertTest(Crudtest crudtest) {
@@ -26,6 +27,11 @@ public class CrudtestController {
 	@GetMapping("/selectTest")
 	public List<Crudtest> selectTest(Crudtest crudtest) {
 		return restApiService.selectByUsername(crudtest);
+	}
+
+	@GetMapping("/selectOrder")
+	public List<Ordertest> selectOrder(Crudtest crudtest) {
+		return restApiService.selectOrderList(crudtest);
 	}
 
 	@GetMapping("/updateTest")

@@ -17,9 +17,11 @@ import lombok.ToString;
 @ToString
 @Table(name = "CRUDTEST")
 public class Crudtest {
+	
+	
 	@Id
 	@GeneratedValue
-	Long id;
+	private Long id;
 	
 	@Column(name = "userid")
 	private String userid;

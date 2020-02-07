@@ -7,12 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.boot.api.apiservice.model.Crudtest;
+import com.spring.boot.api.apiservice.model.Ordertest;
 import com.spring.boot.api.apiservice.repository.CrudtestRepository;
+import com.spring.boot.api.apiservice.repository.OrdertestRepository;
 
 @Service
 public class RestApiService {
 	@Autowired
-	CrudtestRepository crudtestRepository;
+	private CrudtestRepository crudtestRepository;
+	
+	@Autowired
+	private OrdertestRepository ordertestRepository;
 	
 	public Crudtest insert(Crudtest crudtestRequest) {
 		Crudtest crudtest = Crudtest.builder()
@@ -41,5 +46,12 @@ public class RestApiService {
 			crudtestRepository.delete(selectCrudtest);
 		});
 		return resultCrudtest;
+	}
+
+	public List<Ordertest> selectOrderList(Crudtest crudtest) {
+		Ordertest newOrder = Ordertest.builder().oname("order1").crudtest(crudtest).build();
+		ordertestRepository.save(newOrder);
+		List<Ordertest> resultOrdertest = ordertestRepository.findAll();
+		return resultOrdertest;
 	}
 }
