@@ -57,13 +57,17 @@ public class QueryDSLService extends QuerydslRepositorySupport {
 		Crudtest crudtestEntity = em.find(Crudtest.class, crudtest.getId());
 		assertThat(crudtest.getUsername(), is(crudtestEntity.getUsername()));
 		
+		// 엔티티 매니저 flush 하지 않아도 아래 구문 실행 시 DB 업데이트 한다. (영속성 컨텍스트에 있는 엔티티는 수정되지 않는다.)
 		QCrudtest qCrudtest = QCrudtest.crudtest;
 		update(qCrudtest).where(qCrudtest.id.eq(crudtest.getId())).set(qCrudtest.username, "dsltestname").execute();
 		
+		// 기존 username
 		crudtestEntity = em.find(Crudtest.class, crudtest.getId());
 		assertThat(crudtest.getUsername(), is(crudtestEntity.getUsername()));
 		
+		// 영속성 컨텍스트 초기화
 		em.clear();
+		// 엔티티 초기화 진행
 		crudtestEntity = em.find(Crudtest.class, crudtest.getId());
 		assertThat("dsltestname", is(crudtestEntity.getUsername()));
 	}
