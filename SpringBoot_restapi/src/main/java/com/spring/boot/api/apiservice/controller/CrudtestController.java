@@ -20,27 +20,27 @@ public class CrudtestController {
 	private RestApiService restApiService;
 	
 	@GetMapping("/insertTest")
-	public Crudtest insertTest(Crudtest crudtest) {
+	public Crudtest insertTest(Crudtest crudtest) throws Exception {
 		return restApiService.insert(crudtest);
 	}
 	
 	@GetMapping("/selectTest")
-	public List<Crudtest> selectTest(Crudtest crudtest) {
+	public List<Crudtest> selectTest(Crudtest crudtest) throws Exception {
 		return restApiService.selectByUsername(crudtest);
 	}
 
 	@GetMapping("/selectOrder")
-	public List<Ordertest> selectOrder(Crudtest crudtest) {
+	public List<Ordertest> selectOrder(Crudtest crudtest) throws Exception {
 		return restApiService.selectOrderList(crudtest);
 	}
 
 	@GetMapping("/updateTest")
-	public Optional<Crudtest> updateTest(Crudtest crudtest) {
+	public Optional<Crudtest> updateTest(Crudtest crudtest) throws Exception {
 		return restApiService.update(crudtest);
 	}
 	
 	@GetMapping("/deleteTest")
-	public Optional<Crudtest> deleteTest(Crudtest crudtest) {
+	public Optional<Crudtest> deleteTest(Crudtest crudtest) throws Exception {
 		return restApiService.delete(crudtest);
 	}
 	

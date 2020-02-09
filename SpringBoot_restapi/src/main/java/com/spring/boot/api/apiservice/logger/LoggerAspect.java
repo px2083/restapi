@@ -15,7 +15,7 @@ public class LoggerAspect {
 	private static Logger logger = LogManager.getLogger(LoggerAspect.class);
 	
 	@Before("execution(* com.spring.boot.api.apiservice.service.RestApiService*.*(..))")
-	public void startLog(JoinPoint jp) {
+	public void startLog(JoinPoint jp) throws Exception {
 		logger.info("Method: " + jp.getSignature());
 		logger.info("Params: " + Arrays.toString(jp.getArgs()));
 	}

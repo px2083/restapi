@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestApiController {
 	
 	@GetMapping("/hello")
-	public String HelloWorld() {
+	public String HelloWorld() throws Exception {
 		return "Hello World";
 	}
 }

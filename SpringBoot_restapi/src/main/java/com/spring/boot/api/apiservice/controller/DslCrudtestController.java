@@ -19,13 +19,23 @@ public class DslCrudtestController {
 	private QueryDSLService queryDSLService;
 	
 	@GetMapping("/selectList")
-	public List<Crudtest> selectList(Crudtest crudtest) {
+	public List<Crudtest> selectList(Crudtest crudtest) throws Exception {
 		return queryDSLService.selectByUsername(crudtest);
 	}
 
 	@GetMapping("/selectone")
-	public Optional<Crudtest> selectOne(Crudtest crudtest) {
+	public Optional<Crudtest> selectOne(Crudtest crudtest) throws Exception {
 		return queryDSLService.selectOneById(crudtest);
+	}
+
+	@GetMapping("/update")
+	public void updateById(Crudtest crudtest) throws Exception {
+		queryDSLService.updateById(crudtest);
+	}
+
+	@GetMapping("/delete")
+	public void deleteById(Crudtest crudtest) throws Exception {
+		queryDSLService.deleteById(crudtest);
 	}
 	
 }

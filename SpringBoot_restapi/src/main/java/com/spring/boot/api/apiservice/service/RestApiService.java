@@ -27,11 +27,11 @@ public class RestApiService {
 		return crudtest;
 	}
 	
-	public List<Crudtest> selectByUsername(Crudtest crudtest) {
+	public List<Crudtest> selectByUsername(Crudtest crudtest) throws Exception {
 		return crudtestRepository.findCrudtestByUsername(crudtest.getUsername());
 	}
 	
-	public Optional<Crudtest> update(Crudtest crudtest) {
+	public Optional<Crudtest> update(Crudtest crudtest) throws Exception {
 		Optional<Crudtest> resultCrudtest = crudtestRepository.findById(crudtest.getId());
 		resultCrudtest.ifPresent(selectCrudtest -> {
 			selectCrudtest.setUsername(crudtest.getUsername());
@@ -40,7 +40,7 @@ public class RestApiService {
 		return resultCrudtest;
 	}
 	
-	public Optional<Crudtest> delete(Crudtest crudtest) {
+	public Optional<Crudtest> delete(Crudtest crudtest) throws Exception {
 		Optional<Crudtest> resultCrudtest = crudtestRepository.findById(crudtest.getId());
 		resultCrudtest.ifPresent(selectCrudtest -> {
 			crudtestRepository.delete(selectCrudtest);
@@ -48,7 +48,7 @@ public class RestApiService {
 		return resultCrudtest;
 	}
 
-	public List<Ordertest> selectOrderList(Crudtest crudtest) {
+	public List<Ordertest> selectOrderList(Crudtest crudtest) throws Exception {
 		Ordertest newOrder = Ordertest.builder().oname("order1").crudtest(crudtest).build();
 		ordertestRepository.save(newOrder);
 		List<Ordertest> resultOrdertest = ordertestRepository.findAll();
