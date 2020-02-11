@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class LoggerAspect {
 	private static Logger logger = LogManager.getLogger(LoggerAspect.class);
 	
-	@Before("execution(* com.spring.boot.api.apiservice.service.RestApiService*.*(..))")
+	@Before("execution(* com.spring.boot.api.apiservice.service.*Service*.*(..))")
 	public void startLog(JoinPoint jp) throws Exception {
 		logger.info("Method: " + jp.getSignature());
 		logger.info("Params: " + Arrays.toString(jp.getArgs()));

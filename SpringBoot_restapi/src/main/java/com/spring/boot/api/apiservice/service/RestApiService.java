@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.boot.api.apiservice.model.Crudtest;
 import com.spring.boot.api.apiservice.model.Ordertest;
@@ -19,6 +20,7 @@ public class RestApiService {
 	@Autowired
 	private OrdertestRepository ordertestRepository;
 	
+	@Transactional(readOnly = false)
 	public Crudtest insert(Crudtest crudtestRequest) {
 		Crudtest crudtest = Crudtest.builder()
 				.userid(crudtestRequest.getUserid())
@@ -27,10 +29,12 @@ public class RestApiService {
 		return crudtest;
 	}
 	
+	@Transactional(readOnly = true)
 	public List<Crudtest> selectByUsername(Crudtest crudtest) throws Exception {
 		return crudtestRepository.findCrudtestByUsername(crudtest.getUsername());
 	}
 	
+	@Transactional(readOnly = false)
 	public Optional<Crudtest> update(Crudtest crudtest) throws Exception {
 		Optional<Crudtest> resultCrudtest = crudtestRepository.findById(crudtest.getId());
 		resultCrudtest.ifPresent(selectCrudtest -> {
@@ -40,6 +44,7 @@ public class RestApiService {
 		return resultCrudtest;
 	}
 	
+	@Transactional(readOnly = false)
 	public Optional<Crudtest> delete(Crudtest crudtest) throws Exception {
 		Optional<Crudtest> resultCrudtest = crudtestRepository.findById(crudtest.getId());
 		resultCrudtest.ifPresent(selectCrudtest -> {
@@ -48,6 +53,7 @@ public class RestApiService {
 		return resultCrudtest;
 	}
 
+	@Transactional(readOnly = false)
 	public List<Ordertest> selectOrderList(Crudtest crudtest) throws Exception {
 		Ordertest newOrder = Ordertest.builder().oname("order1").crudtest(crudtest).build();
 		ordertestRepository.save(newOrder);

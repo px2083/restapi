@@ -17,7 +17,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@Table(name = "ORDERTEST")
+@Table(name = "ordertest")
 public class Ordertest {
 	@Id
     @GeneratedValue

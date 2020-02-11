@@ -9,11 +9,11 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.JPQLQuery;
@@ -35,6 +35,7 @@ public class QueryDSLService extends QuerydslRepositorySupport {
 		super(Crudtest.class);
 	}
 	
+	@Transactional(readOnly = true)
 	public List<Crudtest> selectByUsername(Crudtest crudtest) throws Exception {
 		QCrudtest qCrudtest = QCrudtest.crudtest;
 		
@@ -45,6 +46,7 @@ public class QueryDSLService extends QuerydslRepositorySupport {
 		return resultList;
 	}
 
+	@Transactional(readOnly = true)
 	public Optional<Crudtest> selectOneById(Crudtest crudtest) throws Exception {
 		Predicate predicate = QCrudtest.crudtest
 				.id.eq(crudtest.getId());
@@ -52,7 +54,7 @@ public class QueryDSLService extends QuerydslRepositorySupport {
 		return crudtestRepository.findOne(predicate);
 	}
 	
-	@Transactional
+	@Transactional(readOnly = false)
 	public void updateById(Crudtest crudtest) throws Exception {
 		Crudtest crudtestEntity = em.find(Crudtest.class, crudtest.getId());
 		assertThat(crudtest.getUsername(), is(crudtestEntity.getUsername()));
@@ -72,7 +74,7 @@ public class QueryDSLService extends QuerydslRepositorySupport {
 		assertThat("dsltestname", is(crudtestEntity.getUsername()));
 	}
 	
-	@Transactional
+	@Transactional(readOnly = false)
 	public void deleteById(Crudtest crudtest) throws Exception {
 		QCrudtest qCrudtest = QCrudtest.crudtest;
 		delete(qCrudtest).where(qCrudtest.id.eq(crudtest.getId())).execute();
