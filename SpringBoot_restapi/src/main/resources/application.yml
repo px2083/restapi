@@ -3,6 +3,8 @@ spring:
     active: local
 ---
 spring:
+  aop:
+    proxy-target-class: true
   profiles: local
   datasource:
         url: jdbc:mariadb://qqer.synology.me:8090/test
@@ -33,7 +35,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
   kafka:
-    listener:      missing-topics-fatal: false
+    listener:      missing-topics-fatal: false #구성된 주제가 브로커에 없는 경우에도 컨테이너가 시작되도록 하려면 false로 설정
     consumer:
       group-id: kafka-intro
     bootstrap-servers: localhost:9092

@@ -11,7 +11,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-@Component
 public class ScheduledTasks {
 
 	private static Logger log = LogManager.getLogger(ScheduledTasks.class);
