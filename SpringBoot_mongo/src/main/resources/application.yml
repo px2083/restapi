@@ -1,0 +1,22 @@
+spring:
+  profiles:
+    active: local
+---
+spring:
+  profiles: local
+  data:
+    mongodb:
+      host: qqer.synology.me
+      port: 27019
+      authentication-database: mongo1
+      database: mongo1
+      username: mongo1user
+      password: mongo1!
+  kafka:
+    listener:
+      missing-topics-fatal: false #구성된 주제가 브로커에 없는 경우에도 컨테이너가 시작되도록 하려면 false로 설정
+    consumer:
+      group-id: kafka-intro
+    bootstrap-servers: localhost:9092
+server:
+  port: 8001

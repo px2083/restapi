@@ -10,12 +10,17 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
 public class LoggerAspect {
 	private static Logger logger = LogManager.getLogger(LoggerAspect.class);
+	
+	@Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
 	
 	@Before("execution(* com.spring.boot.api.apiservice..*(..))")
 	public void startLog(JoinPoint jp) throws Exception {
@@ -36,6 +41,9 @@ public class LoggerAspect {
             logger.info(joinPoint.getTarget().getClass().getSimpleName());
             logger.info(sig.getName());
             logger.info(Arrays.toString(joinPoint.getArgs()));
+            
+            String logStr = joinPoint.getTarget().getClass().getSimpleName() + "." +  sig.getName() + "(" + Arrays.toString(joinPoint.getArgs()) + ")";
+            kafkaTemplate.send("log", logStr);
         }
     }
 

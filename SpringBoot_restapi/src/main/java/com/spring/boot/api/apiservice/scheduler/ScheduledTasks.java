@@ -37,4 +37,9 @@ public class ScheduledTasks {
     public void receiveTopic1(String message) {
         log.info("Receiver on topic1: "+message);
     }
+	
+	@KafkaListener(topics = "curd", groupId = "group-id")
+	public void receiveTopic2(String message) {
+		log.info("Receiver on topic2: "+message);
+	}
 }
